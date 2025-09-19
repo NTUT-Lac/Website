@@ -24,5 +24,6 @@ _testmain.go
 
 .hugo_build.lock
 /public
-/themes
+/themes/*
+!/themes/hugo-theme-tokiwa
 .DS_Store

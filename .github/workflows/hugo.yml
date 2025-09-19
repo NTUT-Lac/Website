@@ -39,12 +39,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-
-      # 拉取 Hugo theme
-      - name: Fetch Hugo theme
-        run: |
-          mkdir -p ./LacWeb/themes
-          git clone https://github.com/username/hugo-theme-tokiwa.git ./LacWeb/themes/hugo-theme-tokiwa
+          fetch-depth: 0
 
       # Setup GitHub Pages
       - name: Setup Pages
