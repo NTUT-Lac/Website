@@ -1,61 +1,64 @@
 name: Deploy Hugo site to Pages
 
 on:
-  # 當推送到 master 分支時觸發
   push:
-    branches: ["main"]
+    branches: ["main"]   # 當推送到 main 分支時觸發
+  workflow_dispatch:      # 允許手動觸發
 
-  # 允許手動觸發工作流程
-  workflow_dispatch:
-
-# 設置 GITHUB_TOKEN 的權限以允許部署到 Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 只允許一個部署同時進行，跳過正在進行的運行之間排隊的運行
-# 但是，不要取消正在進行的運行，因為我們希望這些生產部署能夠完成
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
-# 默認為 bash
 defaults:
   run:
     shell: bash
 
 jobs:
-  # 構建工作
   build:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.148.1
     steps:
+      # 安裝 Hugo
       - name: Install Hugo CLI
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
+      # 安裝 Dart Sass
       - name: Install Dart Sass
         run: sudo snap install dart-sass
 
+      # Checkout 代碼
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: recursive
 
+      # 拉取 Hugo theme
+      - name: Fetch Hugo theme
+        run: |
+          mkdir -p ./LacWeb/themes
+          git clone https://github.com/username/hugo-theme-tokiwa.git ./LacWeb/themes/hugo-theme-tokiwa
+
+      # Setup GitHub Pages
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
 
+      # 安裝 Node.js 依賴（如果有）
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
         working-directory: ./LacWeb
 
+      # Build Hugo 網站
       - name: Build with Hugo
         env:
-          # 為了獲得最大的向後兼容性，設置為 production
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
         run: |
@@ -64,18 +67,18 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
+      # 上傳 artifact
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./LacWeb/public
 
-  # 部署工作
   deploy:
+    runs-on: ubuntu-latest
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
