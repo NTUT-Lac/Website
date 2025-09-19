@@ -1,0 +1,71 @@
+<!-- 實驗室成員模板 -->
+<div class="mt-10">
+    <div class="flex items-end gap-3 mb-6">
+        <h2 class="text-2xl font-semibold">實驗室成員</h2>
+        {{ if .Site.Data.team.members }}
+        <p class="text-sm text-gray-500">總共有 {{ len .Site.Data.team.members }} 位成員</p>
+        {{ end }}
+    </div>
+
+    {{ if .Site.Data.team.members }}
+
+    <!-- 收集所有年份（保持數字類型） -->
+    {{ $allYears := slice }}
+    {{ range .Site.Data.team.members }}
+    {{ if not (in $allYears .year) }}
+    {{ $allYears = $allYears | append .year }}
+    {{ end }}
+    {{ end }}
+
+    <!-- 對數字年份進行排序並反轉（最新年份在前） -->
+    {{ $sortedYears := sort $allYears }}
+    {{ $reversedYears := slice }}
+    {{ range seq (sub (len $sortedYears) 1) 0 }}
+    {{ $index := . }}
+    {{ $reversedYears = $reversedYears | append (index $sortedYears $index) }}
+    {{ end }}
+
+    <!-- 按年度顯示成員 -->
+    {{ range $reversedYears }}
+    {{ $currentYear := . }}
+    {{ $members := where $.Site.Data.team.members "year" $currentYear }}
+    {{ if $members }}
+    <h3 class="text-xl font-bold mt-6">{{ $currentYear }} ({{ len $members }} 人)</h3>
+    <div class="custom-grid grid gap-6 mt-4">
+        {{ range $members }}
+        {{ if .link }}
+        <a href="{{ .link }}" target="_blank" class="flex items-center bg-white p-4 shadow rounded-lg hover:shadow-lg hover:scale-102 hover:-translate-y-1 transition-all duration-300 transform cursor-pointer">
+        {{ else }}
+        <div class="flex items-center bg-white p-4 shadow rounded-lg hover:shadow-lg hover:scale-102 hover:-translate-y-1 transition-all duration-300 transform cursor-pointer">
+        {{ end }}
+            {{ if .image }}
+            <img class="h-16 w-16 object-cover rounded-full mr-4" src="{{ .image | relURL }}" alt="{{ .name }}"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="h-16 w-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold mr-4"
+                style="display: none;">
+                {{ substr .name 0 1 }}
+            </div>
+            {{ else }}
+            <div
+                class="h-16 w-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold mr-4">
+                {{ substr .name 0 1 }}
+            </div>
+            {{ end }}
+            <div>
+                <p class="text-lg font-semibold">{{ .name }}</p>
+                <p class="text-gray-500">{{ .role }}</p>
+            </div>
+        {{ if .link }}
+        </a>
+        {{ else }}
+        </div>
+        {{ end }}
+        {{ end }}
+    </div>
+    {{ end }}
+    {{ end }}
+
+    {{ else }}
+    <p class="text-gray-500 mt-4">無法讀取成員資料。</p>
+    {{ end }}
+</div>

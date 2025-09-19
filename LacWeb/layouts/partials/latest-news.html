@@ -1,0 +1,24 @@
+<!-- 最新消息列表模板 -->
+<h2 class="mt-6">最新消息</h2>
+<section class="mt-4">
+  {{ $news := where (where .Site.RegularPages "Section" "news") ".Params.deleted" "ne" true }}
+  {{ if $news }}
+  {{ range first 5 $news }}
+  <div class="mt-4">
+    <h3 class="flex justify-between items-baseline">
+      <div class="flex">        
+        <span class="mr-2 text-lg" style="color: rgba(1, 81, 58, var(--tw-text-opacity));">●</span>
+        <a href="{{ .RelPermalink }}" class="flex items-center"> 
+        {{ .Title }}
+      </a>
+      </div>
+      
+      <small class="">{{ .Date.Format "2006-01-02" }}</small>
+    </h3>
+    <div class="text-gray-600 ml-7 text-sm leading-relaxed news-summary">{{ .Summary | plainify | truncate 120 }}</div>
+  </div>
+  {{ end }}
+  {{ else }}
+  <p>目前沒有最新消息。</p>
+  {{ end }}
+</section>

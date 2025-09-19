@@ -1,0 +1,64 @@
+<!-- 可自訂的三按鈕 Footer 組件 -->
+<!-- 參數說明：
+     - prevButton: 左邊按鈕設定 { show: true/false, url: "連結", text: "文字", icon: "SVG圖示" }
+     - centerButton: 中間按鈕設定 { show: true/false, url: "連結", text: "文字", icon: "SVG圖示" }
+     - nextButton: 右邊按鈕設定 { show: true/false, url: "連結", text: "文字", icon: "SVG圖示" }
+-->
+
+{{ $prevButton := .prevButton }}
+{{ $centerButton := .centerButton }}
+{{ $nextButton := .nextButton }}
+
+<hr class="double-line" />
+<div class="grid grid-cols-3 pb-2 leading-loose font-serif">
+    <!-- 左邊按鈕 (上一篇) -->
+    <div class="flex justify-start">
+        {{ if and $prevButton $prevButton.show }}
+        <a href="{{ $prevButton.url }}" class="flex items-center footer-button" title="{{ $prevButton.text }}">
+            {{ if $prevButton.icon }}
+            {{ $prevButton.icon | safeHTML }}
+            {{ else }}
+            <svg class="fill-current inline-block h-4 w-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" />
+            </svg>
+            {{ end }}
+            <span class="text-container ml-1">{{ $prevButton.text }}</span>
+        </a>
+        {{ end }}
+    </div>
+
+    <!-- 中間按鈕 (回首頁/回上一頁) - 永遠居中 -->
+    <div class="flex justify-center">
+        {{ if and $centerButton $centerButton.show }}
+        <a href="{{ $centerButton.url }}" class="flex items-center footer-button" title="{{ $centerButton.text }}">
+            {{ if $centerButton.icon }}
+            {{ $centerButton.icon | safeHTML }}
+            {{ else }}
+            <svg class="fill-current inline-block h-4 w-4 mr-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M21 20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.49a1 1 0 01.386-.79l8-6.222a1 1 0 011.228 0l8 6.222a1 1 0 01.386.79V20zM19 9.978l-7-5.444-7 5.444V19h14V9.978z"/>
+            </svg>
+            {{ end }}
+            <span class="text-container">{{ $centerButton.text }}</span>
+        </a>
+        {{ end }}
+    </div>
+
+    <!-- 右邊按鈕 (下一篇) -->
+    <div class="flex justify-end">
+        {{ if and $nextButton $nextButton.show }}
+        <a href="{{ $nextButton.url }}" class="flex items-center footer-button" title="{{ $nextButton.text }}">
+            <span class="text-container mr-1">{{ $nextButton.text }}</span>
+            {{ if $nextButton.icon }}
+            {{ $nextButton.icon | safeHTML }}
+            {{ else }}
+            <svg class="fill-current inline-block h-4 w-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" />
+            </svg>
+            {{ end }}
+        </a>
+        {{ end }}
+    </div>
+</div>

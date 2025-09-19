@@ -1,0 +1,24 @@
+{{ define "main" }}
+<h1 class="text-2xl mt-5 font-bold">
+  {{ .Title }}
+</h1>
+
+<!-- 招生公告橫幅 -->
+{{ if isset .Site.Params "description" }}
+<div class="font-serif pt-3 recruitment-banner">
+  <div>{{ .Site.Params.Description | markdownify }}</div>
+</div>
+<hr class="pt-2" />
+{{ end }}
+
+<!-- 第一部分：首頁內容 -->
+<section class="mx-auto content">
+  <div class="c-rich-text">
+    {{ .Content }}
+  </div>
+</section>
+
+<!-- 第二部分：最新消息 -->
+{{ partial "latest-news.html" . }}
+
+{{ end }}

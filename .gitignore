@@ -1,0 +1,22 @@
+# 忽略原始靜態網站檔案
+origin/
+
+# Hugo 相關檔案
+.hugo_build.lock
+public/
+
+# 系統檔案
+.DS_Store
+Thumbs.db
+
+# 編輯器檔案
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 依賴檔案
+node_modules/
+
+# 日誌檔案
+*.log

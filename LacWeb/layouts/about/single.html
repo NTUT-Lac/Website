@@ -1,0 +1,30 @@
+{{ define "header" }}
+{{ partial "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+<h1 class="text-2xl mb-5 font-bold">
+  {{ .Title }}
+</h1>
+
+<!-- 頁面內容 -->
+<div class="content mb-8">
+  {{ .Content }}
+</div>
+
+<!-- 教授資訊 -->
+{{ partial "professor-info.html" . }}
+
+<!-- 實驗室成員 -->
+{{ partial "team-members.html" . }}
+
+{{ end }}
+
+{{ define "aside" }}
+	{{ partial "page-aside.html" . }}
+{{ end }}
+
+{{ define "footer" }}
+{{ $centerButton := dict "show" true "url" (printf "%s" .Site.BaseURL) "text" "回首頁" }}
+{{ partial "custom-footer.html" (dict "prevButton" (dict "show" false) "centerButton" $centerButton "nextButton" (dict "show" false)) }}
+{{ end }}

@@ -1,0 +1,51 @@
+professor:
+  name: "林濬璈"
+  title: "助理教授"
+  department: "創新前瞻科技研究學院 "
+  email: "jalin@ntut.edu.tw"
+  phone: "02-27712171#3858"
+  lab: "宏裕大樓308"
+  expertise: "軟體安全與驗證、密碼學、量子計算"
+  office_hours: 
+    - "Thursday 09:00 - 11:00"
+    - "Friday 10:00 - 12:00"
+  image: "images/Professor.png"
+  website: "https://carquois42.github.io/"
+
+members:
+  - name: "洪俊傑"
+    image: "images/moai.png"
+    year: 2024
+    role: "碩士生"
+    link: ""
+
+  - name: "吳宥頡"
+    image: "images/Professor.png"
+    year: 2024
+    role: "碩士生"
+    link: ""
+
+  - name: "張筠珮"
+    image: "images/Professor.png"
+    year: 2024
+    role: "碩士生"
+
+  - name: "吳采融"
+    image: "images/Professor.png"
+    year: 2024
+    role: "碩士生"
+
+  - name: "張家瑋"
+    image: "images/Professor.png"
+    year: 2025
+    role: "碩士生"
+
+  - name: "簡宏哲"
+    image: "images/Professor.png"
+    year: 2025
+    role: "碩士生"
+
+  - name: "盧易賢"
+    image: "images/Professor.png"
+    year: 2025
+    role: "碩士生"

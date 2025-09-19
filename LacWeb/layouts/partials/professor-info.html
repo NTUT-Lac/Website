@@ -1,0 +1,36 @@
+<!-- 教授資訊模板 -->
+{{ with .Site.Data.team.professor }}
+<div class="max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-3xl">
+    <div class="md:flex p-8 gap-6">
+        <div class="md:flex-shrink-0 flex items-center justify-center h-full">
+            {{ with .image }}
+            <img class="h-48 w-full object-cover md:w-48" src="{{ . | relURL }}" alt="教授照片">
+            {{ else }}
+            <div class="h-48 w-full md:w-48 bg-gray-200 flex items-center justify-center text-gray-500">
+                無照片
+            </div>
+            {{ end }}
+        </div>
+        <div class="flex-1">
+            <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">教授</div>
+            <p class="block mt-1 text-lg leading-tight font-medium text-black">{{ .name }}</p>
+            <p class="mt-2 text-gray-500">職稱: {{ .title }}</p>
+            <p class="mt-2 text-gray-500">所屬系所: {{ .department }}</p>
+            <p class="mt-2 text-gray-500">E-mail: {{ .email }}</p>
+            <p class="mt-2 text-gray-500">電話: {{ .phone }}</p>
+            <p class="mt-2 text-gray-500">研究室: {{ .lab }}</p>
+            <p class="mt-2 text-gray-500">專業領域: {{ .expertise }}</p>
+            <div class="mt-2 text-gray-500">
+                <span>Office hour: </span>
+                {{ range $index, $hour := .office_hours }}
+
+                    <span class="whitespace-nowrap">{{ $hour }}</span>
+                {{ end }}
+            </div>
+            <p class="mt-2 text-gray-500">個人網頁: <a href="{{ .website }}" class="text-indigo-500 hover:underline">{{ .website }}</a></p>
+        </div>
+    </div>
+</div>
+{{ else }}
+<p class="text-gray-500">教授資訊尚未提供。</p>
+{{ end }}

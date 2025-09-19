@@ -1,0 +1,11 @@
+<div class="pb-4">
+	<h1>
+		<a href="{{ .Site.BaseURL }}" title="{{ .Site.Title }}" class="heading font-cursive icon">{{ .Site.Title }}</a>
+	</h1>
+	{{- if .Site.Params.subtitle -}}
+	<p class="text-gray-600 text-xl mt-2 font-normal italic">
+		{{ .Site.Params.subtitle }}
+	</p>
+	{{- end -}}
+</div>
+{{ partial "site-navigation.html" . }}

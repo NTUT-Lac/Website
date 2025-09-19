@@ -1,0 +1,18 @@
+{{$scratch := newScratch}}
+{{ range (.Site.Pages)}}
+{{$scratch.Add "total" .WordCount}}
+{{ end }}
+<div class="md:max-w-xs  flex flex-col md:items-end pt-2">
+	{{ partial "social-follow.html" . }}
+	<a href="https://www.ntut.edu.tw/" title="前往 國立台北科技大學官網" target="_blank" class="hover:scale-101 hover:-translate-y-1 transition-all duration-300 transform cursor-pointer">
+		<img src="{{ "images/NTUT_logo.png" | relURL }}" alt="NTUT Logo" class="h-12 mb-4">
+	</a>
+	<div class="a-gray text-sm text-gray-500 leading-tight">
+		{{.Site.Copyright|safeHTML}}
+		<br />
+		Built with Hugo and theme <a 
+			href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>.
+			<br />
+			{{ len  .Site.Pages }} pages, {{$scratch.Get "total" }} words in total.
+	</div>
+</div>

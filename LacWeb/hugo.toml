@@ -1,0 +1,83 @@
+DefaultContentLanguage = "en"
+author = "He Yeshuang"
+# baseURL = "http://localhost:1313" #dev
+baseURL = "https://NTUT-Lac.github.io/Website/" #production
+copyright = "Copyright © 2025"
+# disqusShortname = "lab"  # 已禁用
+enableInlineShortcodes = true
+footnoteReturnLinkContents = "^"
+googleAnalytics = "UA-FAKE" ## or "G-xxxxxxxx" in Google Analytics v4, in hugo v0.82+
+hasCJKLanguage = true
+languageCode = "cn"
+theme = "hugo-theme-tokiwa"
+title = "邏輯、自動推理與資訊安全實驗室"
+
+[markup]
+[markup.highlight]
+style = "monokailight"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[mediaTypes]
+[mediaTypes."text/css"]
+suffixes = ["css"]
+
+[params]
+bannerFont = "fonts/exampleFont" 
+subtitle = "Logic, Automated reasoning and cybersecurity"
+description = """感謝大家對本實驗室的支持與關注，目前 114 年度實驗室招生名額已全數額滿!
+            """ 
+env = "production" # for Google Analytics and DISQUS.
+favicon = "img/favicon-32x32.png" 
+fuse = false # for searchbox. "JSON" must added to output contents. See [outputs].
+math = true # for introducing $KaTeX$
+useChineseFonts = true 
+postDateFormat = "2006-1-2"
+currentDate = "2025-9-17"
+custom_css = ["css/custom.css", "css/app.css"]
+
+mainSections = ["news", "blogs"]
+
+[menu]
+# Shown in the side menu.
+[[menu.main]]
+name = "首頁"
+url = "/"
+weight = 1
+
+[[menu.main]]
+identifier = "about"
+name = "About"
+url = "/about/"
+weight = 2
+
+[[menu.main]]
+identifier = "blogs"
+name = "Blogs"
+url = "/blogs/"
+weight = 3
+
+[[menu.main]]
+identifier = "news"
+name = "最新消息"
+url = "/news/"
+weight = 4
+
+[[menu.main]]
+identifier = "contact"
+name = "聯絡我們"
+url = "/contact/"
+weight = 6
+
+[taxonomies]
+category = "categories"
+series = "series"
+tag = "tags"
+
+[params.social]
+# youtube = "https://youtube.com/"
+# any icon in layouts/partials/svg can be used by the name without the "-line.svg"
+
+[outputs]
+home = ["HTML", "JSON"]

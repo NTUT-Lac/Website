@@ -1,0 +1,42 @@
+
+{{ $newsPages := where (where .Site.RegularPages "Section" "news") ".Params.deleted" "ne" true }}
+{{ $newsPages = $newsPages.ByDate.Reverse }}
+{{ $currentIndex := 0 }}
+
+<!-- 找出當前文章在 news 中的位置 -->
+{{ range $index, $page := $newsPages }}
+  {{ if eq $page.RelPermalink $.RelPermalink }}
+    {{ $currentIndex = $index }}
+  {{ end }}
+{{ end }}
+
+<!-- 計算上一篇和下一篇 -->
+{{ $prevPage := "" }}
+{{ $nextPage := "" }}
+
+{{ if gt $currentIndex 0 }}
+  {{ $prevPage = index $newsPages (sub $currentIndex 1) }}
+{{ end }}
+
+{{ if lt $currentIndex (sub (len $newsPages) 1) }}
+  {{ $nextPage = index $newsPages (add $currentIndex 1) }}
+{{ end }}
+
+<!-- 設定按鈕參數 -->
+{{ $prevButton := dict }}
+{{ $centerButton := dict "show" true "url" (printf "%snews/" .Site.BaseURL) "text" "最新消息" }}
+{{ $nextButton := dict }}
+
+{{ if $prevPage }}
+  {{ $prevButton = dict "show" true "url" $prevPage.RelPermalink "text" $prevPage.Title }}
+{{ else }}
+  {{ $prevButton = dict "show" false }}
+{{ end }}
+
+{{ if $nextPage }}
+  {{ $nextButton = dict "show" true "url" $nextPage.RelPermalink "text" $nextPage.Title }}
+{{ else }}
+  {{ $nextButton = dict "show" false }}
+{{ end }}
+
+{{ partial "custom-footer.html" (dict "prevButton" $prevButton "centerButton" $centerButton "nextButton" $nextButton) }}
